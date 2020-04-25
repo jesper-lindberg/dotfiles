@@ -16,15 +16,11 @@ brew bundle
 # Make ZSH the default shell environment
 chsh -s $(which fish)
 
-# Install Fisher (Fish Package Manager)
-curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+# Symlink fish directory
+ln -s ~/.dotfiles/.config/fish ~/config/fish
 
-# Symlink fish config
-ln -s ~/.dotfiles/config.fish ~/.config/fish/config.fish
-ln -s ~/.dotfiles/fishfile ~/.config/fish/fishfile
+# Symlink neovim directory
+ln -s ~/.dotfiles/.config/nvim ~/config/nvim
 
 # Set OS X preferences
 source .osx
-
-# Symlink .vimrc file to the home directory
-ln -s ~/.dotfiles/.vimrc ~/.vimrc
