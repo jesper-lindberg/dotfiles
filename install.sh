@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Setting up your Mac..."
+echo "Setting up environment..."
 
 # Check for Homebrew and install if we don't have it
 if test ! $(which brew); then
@@ -21,6 +21,3 @@ ln -s ~/.dotfiles/.config/fish ~/config/fish
 
 # Symlink neovim directory
 ln -s ~/.dotfiles/.config/nvim ~/config/nvim
-
-# Set OS X preferences
-source .osx
