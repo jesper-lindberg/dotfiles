@@ -20,7 +20,4 @@ chsh -s $(which fish)
 ln -s ~/.dotfiles/config/fish ~/.config/fish
 
 # Symlink neovim directory
-ln -s ~/.dotfiles/config/nvim ~/.config/nvim
-
-# Set OS X preferences
-source .osx
+ln -s ~/.dotfiles/.config/nvim ~/config/nvim
