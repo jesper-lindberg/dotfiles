@@ -22,6 +22,7 @@ brew 'findutils'
 
 # Install more recent versions of some OS X tools
 brew 'homebrew/dupes/grep'
+brew 'ripgrep'
 
 # Install Binaries
 brew 'hub'

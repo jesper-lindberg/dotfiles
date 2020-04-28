@@ -391,7 +391,7 @@ autocmd User Startified setlocal buftype=
 
 " Keybindings {{{
 nnoremap <Leader>f :BLines<CR>
-nnoremap <Leader>g :Lines<CR>
+nnoremap <Leader>g :Rg<CR>
 nnoremap <Leader>w :write<CR>
 nnoremap <Leader>q :quit<CR>
 
