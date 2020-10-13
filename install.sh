@@ -13,7 +13,7 @@ brew update
 brew tap homebrew/bundle
 brew bundle
 
-# Make ZSH the default shell environment
+# Make fish the default shell environment
 chsh -s $(which fish)
 
 # Symlink fish directory
