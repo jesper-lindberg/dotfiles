@@ -10,10 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Auto completion
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-
-" LSP client
-" Plug 'natebosch/vim-lsc'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Fuzzy search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -38,6 +35,8 @@ Plug 'tpope/vim-rhubarb'
 
 " Surround word with quotes etc
 Plug 'tpope/vim-surround'
+
+Plug 'vifm/vifm.vim'
 
 " Terraform
 Plug 'hashivim/vim-terraform'
@@ -68,7 +67,6 @@ Plug 'TaDaa/vimade'
 Plug 'simeji/winresizer'
 
 " Language support
-" Plug 'arp242/gopher.vim'
 Plug 'plasticboy/vim-markdown'
 
 " Color schemes
@@ -182,7 +180,7 @@ augroup END
 set termguicolors
 set background=dark
 
-colorscheme nord
+colorscheme ayu
 
 " }}}
 
@@ -252,16 +250,7 @@ let g:lightline.tabline = {
  \ 'right': [ ['close'] ]
  \ }
 
-let g:lightline.colorscheme = 'nord'
-" }}}
-
-" Plugin: neoformat {{{
-
-" augroup fmt
-"   autocmd!
-"   autocmd BufWritePre * undojoin | Neoformat
-" augroup END
-
+let g:lightline.colorscheme = 'ayu'
 " }}}
 
 " Plugin: neosnippet {{{
@@ -277,35 +266,6 @@ let g:neosnippet#disable_runtime_snippets = {
 " Set the path to our snippets
 let g:neosnippet#snippets_directory='~/.dotfiles/config/nvim/snippets'
 " }}}
-
-" Plugin: lsc {{{
-
-let g:lsc_enable_autocomplete = v:false
-let g:lsc_server_commands = {
-\  "go": {
-\    "command": "gopls serve",
-\    "log_level": -1,
-\    "supress_stderr": v:true,
-\  },
-\}
-
-let g:lsc_auto_map = {
-    \ 'GoToDefinition': '<leader>gd',
-    \ 'GoToDefinitionSplit': ['<leader>gdv', '<leader>gdh'],
-    \ 'FindReferences': 'gr',
-    \ 'NextReference': '<leader>n',
-    \ 'PreviousReference': '<leader>p',
-    \ 'FindImplementations': 'gI',
-    \ 'FindCodeActions': 'ga',
-    \ 'Rename': 'gR',
-    \ 'ShowHover': v:true,
-    \ 'DocumentSymbol': 'go',
-    \ 'WorkspaceSymbol': 'gS',
-    \ 'SignatureHelp': 'gm',
-    \ 'Completion': 'completefunc',
-    \}
-
-"}}}
 
 " Plugin: coc.nvim {{{
 
@@ -353,7 +313,6 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " }}}
 

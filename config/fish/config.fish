@@ -2,6 +2,7 @@
 set -gx PATH /usr/local/bin /usr/local/sbin ~/go/bin $HOME/.node/bin node_modules/.bin vendor/bin $PATH
 set -gx GOPATH ~/go
 set -gx GOPRIVATE github.com/sybogames
+set -gx GREN_GITHUB_TOKEN 93c585f5fdd75831ec8d3279afd4d154c05c74ee
 
 # Set up theme
 set -g theme_display_git yes
@@ -22,7 +23,7 @@ set -g theme_nerd_fonts no
 set -g theme_show_exit_status yes
 set -g theme_project_dir_length 1
 set -g theme_newline_cursor yes
-set -g theme_color_scheme terminal2-dark
+set -g theme_color_scheme ayu
 set -g fish_prompt_pwd_dir_length 20
 
 # Set up aliases
