@@ -2,7 +2,6 @@
 set -gx PATH /usr/local/bin /usr/local/sbin ~/go/bin $HOME/.node/bin node_modules/.bin vendor/bin $PATH
 set -gx GOPATH ~/go
 set -gx GOPRIVATE github.com/sybogames
-set -gx GREN_GITHUB_TOKEN 93c585f5fdd75831ec8d3279afd4d154c05c74ee
 
 # Set up theme
 set -g theme_display_git yes
