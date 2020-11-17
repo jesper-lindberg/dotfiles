@@ -52,7 +52,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Code formatting
-Plug 'sbdchd/neoformat'
+" Plug 'sbdchd/neoformat'
 
 " Automatic closing of quotes, parenthesis etc
 Plug 'Raimondi/delimitMate'
@@ -340,6 +340,10 @@ let g:NERDTreeChDirMode = 2
 
 " }}}
 
+" Plugin: vim-terraform {{{
+let g:terraform_fmt_on_save = 1
+" }}}
+
 " Plugin: startify {{{
 let g:startify_change_to_dir = 1
 let g:startify_custom_header = []
@@ -529,5 +533,3 @@ au FileType yaml set tabstop=2
 " automatically equalize splits when Vim is resized
 autocmd VimResized * wincmd =
 " }}}
-
-

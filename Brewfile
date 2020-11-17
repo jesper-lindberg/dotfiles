@@ -36,6 +36,7 @@ brew 'vim'
 brew 'node'
 brew 'go'
 cask 'docker'
+brew 'git-delta'
 
 # Apps
 cask 'aerial'
