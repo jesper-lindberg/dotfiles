@@ -36,8 +36,6 @@ Plug 'tpope/vim-rhubarb'
 " Surround word with quotes etc
 Plug 'tpope/vim-surround'
 
-Plug 'vifm/vifm.vim'
-
 " Terraform
 Plug 'hashivim/vim-terraform'
 
@@ -52,7 +50,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Code formatting
-" Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat'
 
 " Automatic closing of quotes, parenthesis etc
 Plug 'Raimondi/delimitMate'
