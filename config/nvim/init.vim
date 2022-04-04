@@ -162,7 +162,7 @@ autocmd BufLeave * silent! :wa
 " remove trailing white spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-let g:python3_host_prog       = '/usr/local/bin/python3'
+let g:python3_host_prog       = '/usr/bin/python3'
 let g:python3_host_skip_check = 1
 
 " Reload vim config after saving

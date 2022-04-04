@@ -1,6 +1,7 @@
 # Set environment variables
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
-set -gx PATH /usr/local/bin /usr/local/sbin ~/go/bin $HOME/.node/bin $HOME/.linkerd2/bin node_modules/.bin vendor/bin $PATH
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+
+set -gx PATH /opt/homebrew/bin /usr/local/bin /usr/local/sbin ~/go/bin $HOME/.node/bin $HOME/.linkerd2/bin node_modules/.bin vendor/bin $PATH
 set -gx GOPATH ~/go
 set -gx GOPRIVATE github.com/sybogames
 

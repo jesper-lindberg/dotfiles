@@ -1,9 +1,8 @@
 # Taps
-tap 'caskroom/cask'
-tap 'caskroom/fonts'
-tap 'caskroom/versions'
+tap 'homebrew/cask'
+tap 'homebrew/cask-fonts'
+tap 'homebrew/cask-versions'
 tap 'homebrew/bundle'
-tap 'homebrew/dupes'
 
 # Make sure apps get installed in system Applications dir
 cask_args appdir: '/Applications'
@@ -23,6 +22,7 @@ brew 'findutils'
 # Install more recent versions of some OS X tools
 brew 'homebrew/dupes/grep'
 brew 'ripgrep'
+brew 'fzf'
 
 # Install Binaries
 brew 'hub'
@@ -37,6 +37,13 @@ brew 'node'
 brew 'go'
 cask 'docker'
 brew 'git-delta'
+brew 'macdown'
+brew 'google-cloud-sdk'
+brew 'k3d'
+brew 'kubectl'
+brew 'skaffold'
+brew 'helm'
+brew 'k9s'
 
 # Apps
 cask 'aerial'
