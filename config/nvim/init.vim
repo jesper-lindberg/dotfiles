@@ -1,91 +1,4 @@
-"     ____  ___  ____ _   __(_)___ ___
-"    / __ \/ _ \/ __ \ | / / / __ `__ \
-"   / / / /  __/ /_/ / |/ / / / / / / /
-"  /_/ /_/\___/\____/|___/_/_/ /_/ /_/
-"
-
-" Plugins {{{
-call plug#begin('~/.local/share/nvim/plugged')
-
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" Auto completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Fuzzy search
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-" Snippet manager
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-
-" Show diff in sign column
-Plug 'mhinz/vim-signify'
-
-" Common language defaults
-Plug 'sheerun/vim-polyglot'
-
-" Start screen plugin
-Plug 'mhinz/vim-startify'
-
-" Git plugin
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-
-" Surround word with quotes etc
-Plug 'tpope/vim-surround'
-
-" Terraform
-Plug 'hashivim/vim-terraform'
-
-" Status bar
-Plug 'itchyny/lightline.vim'
-
-" Comment plugin
-Plug 'tomtom/tcomment_vim'
-
-" File browser plugin
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" Code formatting
-Plug 'sbdchd/neoformat'
-
-" Automatic closing of quotes, parenthesis etc
-Plug 'Raimondi/delimitMate'
-
-" Jump to location with two characters
-Plug 'justinmk/vim-sneak'
-
-" Fades inactive buffers
-Plug 'TaDaa/vimade'
-
-" Resize windows
-Plug 'simeji/winresizer'
-
-" Language support
-Plug 'plasticboy/vim-markdown'
-
-" Color schemes
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'flazz/vim-colorschemes'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'altercation/vim-colors-solarized'
-Plug 'ayu-theme/ayu-vim'
-Plug 'kaicataldo/material.vim'
-Plug 'rakr/vim-one'
-Plug 'Nequo/vim-allomancer'
-Plug 'dracula/vim'
-Plug 'tjammer/blayu.vim'
-Plug 'hhsnopek/vim-firewatch'
-Plug 'jacoborus/tender.vim'
-Plug 'cocopon/lightline-hybrid.vim'
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'arcticicestudio/nord-vim'
-
-call plug#end()
-" }}}
+source ~/.dotfiles/config/nvim/plugins.vim
 
 " General {{{
 let mapleader="\<Space>"
@@ -129,13 +42,6 @@ set number                  " show line numbers
 set history=200             " remember a lot of stuff
 set autoread                " auto-reload files changed on disk
 
-" enable functional autosave
-augroup autoSaveAndRead
-    autocmd!
-    autocmd TextChanged,InsertLeave,FocusLost * silent! wall
-    autocmd CursorHold * silent! checktime
-augroup END
-
 " persistent undo
 set undodir=/tmp/vim/undo
 set hidden                  " Don't unload hidden buffers
@@ -148,28 +54,6 @@ if !isdirectory(expand(&undodir))
     call mkdir(expand(&undodir), "p")
 endif
 
-" enable mouse if possible
-if has('mouse')
-    set mouse=a
-endif
-
-" allow vim to set a custom font or color for a word
-syntax enable
-
-" autosave buffers before leaving them
-autocmd BufLeave * silent! :wa
-
-" remove trailing white spaces on save
-autocmd BufWritePre * :%s/\s\+$//e
-
-let g:python3_host_prog       = '/usr/bin/python3'
-let g:python3_host_skip_check = 1
-
-" Reload vim config after saving
-augroup vimrc
-    autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
-    autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
-augroup END
 
 " }}}
 
@@ -203,9 +87,6 @@ cnoreabbrev Qall qall
 
 set splitbelow
 set splitright
-
-" switch between buffers with tab
-nnoremap <Tab> :bnext!<CR>
 
 " creating splits
 nnoremap <leader>v :vsplit<cr>
@@ -249,20 +130,6 @@ let g:lightline.tabline = {
  \ }
 
 let g:lightline.colorscheme = 'ayu'
-" }}}
-
-" Plugin: neosnippet {{{
-" Disable the default snippets (needed since we do not install
-" Shougo/neosnippet-snippets).
-"
-" Below you can disable default snippets for specific languages. If you set the
-" language to _ it sets the default for all languages.
-let g:neosnippet#disable_runtime_snippets = {
-    \ 'go': 1
-\}
-
-" Set the path to our snippets
-let g:neosnippet#snippets_directory='~/.dotfiles/config/nvim/snippets'
 " }}}
 
 " Plugin: coc.nvim {{{
@@ -351,8 +218,8 @@ autocmd User Startified setlocal buftype=
 " }}}
 
 " Keybindings {{{
-nnoremap <Leader>f :BLines<CR>
-nnoremap <Leader>g :Rg<CR>
+nnoremap <Leader>f :Telescope find_files<CR>
+nnoremap <Leader>g :Telescope live_grep<CR>
 nnoremap <Leader>w :write<CR>
 nnoremap <Leader>q :quit<CR>
 
@@ -367,7 +234,7 @@ function! LocationNext()
 endfunction
 nnoremap <leader>e :call LocationNext()<cr>
 
-nnoremap <C-p> :FZF<cr>
+nnoremap <C-p> :Telescope find_files<cr>
 
 " switch between latest files
 nmap <Leader><Leader> <c-^>
