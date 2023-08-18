@@ -20,4 +20,7 @@ chsh -s $(which fish)
 ln -s ~/.dotfiles/config/fish ~/.config/fish
 
 # Symlink neovim directory
-ln -s ~/.dotfiles/.config/nvim ~/config/nvim
+ln -s ~/.dotfiles/config/nvim ~/.config/nvim
+
+# Symlink starship.toml file
+ln -s ~/.dotfiles/config/starship.toml ~/.config/starship.toml

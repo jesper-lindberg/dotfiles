@@ -34,3 +34,5 @@ alias docker-stop-all="docker stop (docker ps -a -q)"
 alias vim nvim
 alias ls exa
 alias root="cd (git rev-parse --show-cdup)"
+
+starship init fish | source
