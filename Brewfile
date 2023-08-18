@@ -44,6 +44,8 @@ brew 'kubectl'
 brew 'skaffold'
 brew 'helm'
 brew 'k9s'
+brew 'starship'
+brew 'fisher'
 
 # Apps
 cask 'aerial'
