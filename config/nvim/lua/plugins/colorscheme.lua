@@ -1,11 +1,8 @@
-return {{
-    -- Tokyonight - A clean, dark Neovim theme written in Lua.
-
-    "folke/tokyonight.nvim",
+return {
+    'rose-pine/neovim',
+    name = 'rose-pine',
     lazy = false,
-    config = function(_, opts)
-        local tokyonight = require("tokyonight")
-        tokyonight.setup(opts)
-        tokyonight.load()
+    config = function()
+        vim.cmd('colorscheme rose-pine')
     end
-}}
+}

@@ -2,6 +2,9 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.opt.guicursor = ""
+vim.opt.relativenumber = true
+vim.opt.nu = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.undofile = true
 vim.opt.pumheight = 10 -- pop up menu height
@@ -10,39 +13,40 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true -- smart case
 vim.opt.smartindent = true -- smart indent
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
-vim.opt.sidescrolloff = 5 -- how many lines to scroll when using the scrollbar
 vim.opt.autoindent = true
 vim.opt.signcolumn = "yes"
 vim.opt.sessionoptions = "buffers,curdir,folds,help,tabpages,terminal,globals"
+
 -- vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.expandtab = true
 vim.opt.swapfile = false
 vim.opt.termguicolors = true
 vim.opt.updatetime = 100
+vim.opt.backup = false
 vim.opt.writebackup = false
 vim.opt.number = true
 vim.opt.jumpoptions = "view"
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
 vim.opt.cmdheight = 0
-vim.opt.list = true
+vim.opt.list = false
 vim.opt.splitkeep = "screen"
--- vim.opt.syntax = "on"
+
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile  = true
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+vim.opt.sidescrolloff = 8
+
 vim.opt.spelloptions = "camel,noplainbuffer"
 vim.opt.foldlevel = 99
 vim.o.foldcolumn = "1"
--- vim.o.foldlevelstart = 99
+
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldenable = true
-vim.opt.fillchars = {
-    foldopen = "",
-    foldclose = "",
-    fold = " ",
-    foldsep = " ",
-    diff = "/",
-    eob = " "
-}
 vim.opt.mousemoveevent = true
 
 -- command completion

@@ -10,14 +10,14 @@ vim.keymap.set("n", "<leader>f", builtin.find_files)
 vim.keymap.set("n", "<leader>g", builtin.live_grep)
 
 -- Save
-vim.keymap.set({"i", "v", "n"}, "<leader-w>", "<cmd>w<cr><esc>", {
+vim.keymap.set({"i", "v", "n"}, "<leader>w", "<cmd>w<cr><esc>", {
     desc = "Save file"
 })
 
 -- Splits
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>")
 vim.keymap.set("n", "<leader>h", ":split<CR>")
-vim.keymap.set("n", "<leader>q", ":close<CR>")
+vim.keymap.set("n", "<leader>q", ":quit<CR>")
 
 -- Move between splits
 vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
