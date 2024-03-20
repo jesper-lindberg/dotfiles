@@ -52,3 +52,10 @@ vim.opt.mousemoveevent = true
 -- command completion
 vim.opt.wildmode = "longest:full:full"
 vim.opt.wildignore = "*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx,*DS_STORE,*.db"
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    buffer = buffer,
+    callback = function()
+        vim.lsp.buf.format { async = false }
+    end
+})

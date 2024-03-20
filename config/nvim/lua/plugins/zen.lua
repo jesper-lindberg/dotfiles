@@ -1,1 +1,7 @@
-return {"folke/zen-mode.nvim"}
+return {
+    --
+    -- Zen Mode
+    -- Distraction-free coding for Neovim
+    --
+    "folke/zen-mode.nvim"
+}

@@ -9,8 +9,15 @@ vim.keymap.set("n", "<leader>f", builtin.find_files)
 -- Telescope: Jump
 vim.keymap.set("n", "<leader>g", builtin.live_grep)
 
+-- LSP
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'K', vim.lsp.buf.hover)
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', 'dk', vim.diagnostic.goto_prev)
+vim.keymap.set('n', 'dj', vim.diagnostic.goto_next)
+
 -- Save
-vim.keymap.set({"i", "v", "n"}, "<leader>w", "<cmd>w<cr><esc>", {
+vim.keymap.set({ "v", "n" }, "<leader>w", "<cmd>w<cr><esc>", {
     desc = "Save file"
 })
 
@@ -20,13 +27,13 @@ vim.keymap.set("n", "<leader>h", ":split<CR>")
 vim.keymap.set("n", "<leader>q", ":quit<CR>")
 
 -- Move between splits
-vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
-vim.keymap.set("n", "<C-K>", "<C-W><C-K>")
-vim.keymap.set("n", "<C-L>", "<C-W><C-L>")
-vim.keymap.set("n", "<C-H>", "<C-W><C-H>")
+-- vim.keymap.set("n", "<C-J>", "<C-W><C-J>")
+-- vim.keymap.set("n", "<C-K>", "<C-W><C-K>")
+-- vim.keymap.set("n", "<C-L>", "<C-W><C-L>")
+-- vim.keymap.set("n", "<C-H>", "<C-W><C-H>")
 
 -- Terminal
-vim.keymap.set("n", "<leader>tt", ":NeotermToggle<CR>")
+vim.keymap.set("n", "<leader>tt", ":ToggleTerm<CR>")
 
 -- Remap command key
 vim.keymap.set("n", "<leader><leader>", ":")
@@ -54,8 +61,8 @@ vim.keymap.set("n", "<Tab>", "<cmd>bnext<cr>", {
 })
 
 -- NvimTree
-vim.keymap.set("n", "<leader>b", ":NvimTreeToggle<CR>", {}) -- open/close
-vim.keymap.set("n", "<leader>br", ":NvimTreeRefresh<CR>", {}) -- refresh
+vim.keymap.set("n", "<leader>b", ":NvimTreeToggle<CR>", {})    -- open/close
+vim.keymap.set("n", "<leader>br", ":NvimTreeRefresh<CR>", {})  -- refresh
 vim.keymap.set("n", "<leader>bf", ":NvimTreeFindFile<CR>", {}) -- search file
 
 -- Select all
@@ -94,10 +101,10 @@ vim.keymap.set("i", "<C-M-k>", "<Esc>:m .-2<cr>==gi", {
 })
 
 -- Exit neovim
-vim.keymap.set({"i", "v", "n"}, "<C-q>", "<cmd>q<cr>", {
+vim.keymap.set({ "i", "v", "n" }, "<C-q>", "<cmd>q<cr>", {
     desc = "Exit Vim"
 })
-vim.keymap.set({"i", "v", "n"}, "<C-M-q>", "<cmd>qa!<cr>", {
+vim.keymap.set({ "i", "v", "n" }, "<C-M-q>", "<cmd>qa!<cr>", {
     desc = "Exit Vim"
 })
 

@@ -1,5 +1,7 @@
-return {{
-    -- nvim-tree.lua - A file explorer tree for neovim written in lua
+return { {
+    -- nvim-tree
+    -- File explorer for Neovim
+    --
     "nvim-tree/nvim-tree.lua",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
@@ -29,6 +31,13 @@ return {{
             enable = true,
             ignore = true
         },
+        log = {
+            enable = true,
+            truncate = true,
+            types = {
+                diagnostics = true,
+            },
+        },
         filesystem_watchers = {
             enable = true
         },
@@ -36,6 +45,16 @@ return {{
             open_file = {
                 resize_window = true
             }
+        },
+        diagnostics = {
+            enable = true,
+            show_on_dirs = true,
+            icons = {
+                hint = "",
+                info = "",
+                warning = "",
+                error = "",
+            },
         },
         renderer = {
             root_folder_label = false,
@@ -82,4 +101,4 @@ return {{
     config = function(_, opts)
         require("nvim-tree").setup(opts)
     end
-}}
+} }

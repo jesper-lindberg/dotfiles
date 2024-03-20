@@ -1,8 +1,13 @@
 return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
-    dependencies = {"hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip",
-                    "js-everts/cmp-tailwind-colors"},
+    dependencies = {
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+        "js-everts/cmp-tailwind-colors"
+    },
     config = function()
         local luasnip = require("luasnip")
         local cmp = require("cmp")
@@ -36,9 +41,15 @@ return {
         }
 
         local borderstyle = {
-            border = {"╭", "─", "╮", "│", "╯", "─", "╰", "│"},
+            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
             winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None"
         }
+
+        local has_words_before = function()
+            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+            return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+        end
+
         ---@diagnostic disable
         cmp.setup({
             snippet = {
@@ -47,11 +58,22 @@ return {
                 end
             },
             mapping = cmp.mapping.preset.insert({
+                ["<Tab>"] = cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    elseif luasnip.expand_or_jumpable() then
+                        luasnip.expand_or_jump()
+                    elseif has_words_before() then
+                        cmp.complete()
+                    else
+                        fallback()
+                    end
+                end, { "i", "s" }),
                 ["<M-k>"] = cmp.mapping.select_prev_item(),
                 ["<M-j>"] = cmp.mapping.select_next_item(),
-                ["<M-i>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), {"i", "c"}),
-                ["<M-o>"] = cmp.mapping(cmp.mapping.scroll_docs(1), {"i", "c"}),
-                ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), {"i", "c"}),
+                ["<M-i>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+                ["<M-o>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+                ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
                 ["<C-y>"] = cmp.config.disable,
                 ["<C-e>"] = cmp.mapping({
                     i = cmp.mapping.abort(),
@@ -62,7 +84,7 @@ return {
                 })
             }),
             formatting = {
-                fields = {"kind", "abbr", "menu"},
+                fields = { "kind", "abbr", "menu" },
                 format = function(entry, vim_item)
                     vim_item.menu = ({
                         nvim_lsp = "[LSP]",
@@ -89,15 +111,14 @@ return {
             completion = {
                 completeopt = "noselect"
             },
-            sources = cmp.config.sources({{
-                name = "nvim_lsp"
+            sources = cmp.config.sources({
+                { name = "nvim_lsp" },
+                { name = "luasnip" },
+                { name = "path" },
+                { name = "nvim_lsp_signature_help" }
             }, {
-                name = "luasnip"
-            }, {
-                name = "path"
-            }}, {{
-                name = "buffer"
-            }}),
+                { name = "buffer" }
+            }),
             duplicates = {
                 nvim_lsp = 1,
                 luasnip = 1,
