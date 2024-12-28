@@ -10,8 +10,8 @@ cask_args appdir: '/Applications'
 # Install fish
 brew 'fish'
 
-# Install exa. A modern replacement to ls
-brew 'exa'
+# Install eza. A modern replacement to ls
+brew 'eza'
 
 # Install GNU core utilities (those that come with OS X are outdated)
 brew 'coreutils'
@@ -37,8 +37,8 @@ brew 'node'
 brew 'go'
 cask 'docker'
 brew 'git-delta'
-brew 'macdown'
-brew 'google-cloud-sdk'
+cask 'macdown'
+cask 'google-cloud-sdk'
 brew 'k3d'
 brew 'kubectl'
 brew 'skaffold'
@@ -46,15 +46,14 @@ brew 'helm'
 brew 'k9s'
 brew 'starship'
 brew 'fisher'
+brew 'utf8proc'
 
 # Apps
 cask 'aerial'
 cask 'dash'
-cask 'dropbox'
 cask 'firefox'
-cask 'github-desktop'
+cask 'github'
 cask 'google-chrome'
-cask 'iterm2'
 cask 'spotify'
 cask 'tower'
 cask 'transmit'
@@ -70,7 +69,5 @@ cask 'qlstephen'
 
 # Fonts
 cask 'font-source-code-pro'
-cask 'font-source-sans-pro'
-cask 'font-source-serif-pro'
 cask 'font-inconsolata'
 cask 'font-fira-code'

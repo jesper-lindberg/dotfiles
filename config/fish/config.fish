@@ -5,6 +5,7 @@ set -gx PATH /opt/homebrew/bin /usr/local/bin /usr/local/sbin ~/go/bin $HOME/.lo
 set -gx USE_GKE_GCLOUD_AUTH_PLUGIN true
 set -gx GOPATH ~/go
 set -gx GOPRIVATE github.com/sybogames
+set -gx LANG en_US.UTF-8
 
 # Set up theme
 set -g theme_display_git yes
@@ -32,7 +33,7 @@ set -g fish_prompt_pwd_dir_length 20
 alias reset-samba-passwd="docker run --rm -it dperson/samba bash -c ""smbpasswd -U jesperl -r sybogames.local"""
 alias docker-stop-all="docker stop (docker ps -a -q)"
 alias vim nvim
-alias ls exa
+alias ls eza
 alias root="cd (git rev-parse --show-cdup)"
 
 starship init fish | source

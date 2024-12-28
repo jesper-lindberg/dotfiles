@@ -1,17 +1,29 @@
 #!/bin/sh
+OS=$(uname)
+
 echo "Setting up your machine..."
 
-# Check for Homebrew and install if we don't have it
-if test ! $(which brew); then
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Check if the operating system is macOS
+if [[ "$OS" == "Darwin" ]]; then
+    echo "Running macOS specific steps..."
+
+    # Check for Homebrew and install if we don't have it
+    if test ! $(which brew); then
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+
+    # Update Homebrew recipes
+    brew update
+
+    # Install all our dependencies with bundle (See Brewfile)
+    brew tap homebrew/bundle
+    brew bundle
+
+    # Symlink hammerspoon directory
+    ln -s ~/.dotfiles/config/hammerspoon ~/.hammerspoon
+elif [[ "$OS" == "Linux" ]]; then
+    echo "Running Linux specific steps..."
 fi
-
-# Update Homebrew recipes
-brew update
-
-# Install all our dependencies with bundle (See Brewfile)
-brew tap homebrew/bundle
-brew bundle
 
 # Make fish the default shell environment
 chsh -s $(which fish)
