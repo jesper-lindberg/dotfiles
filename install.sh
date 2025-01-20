@@ -6,6 +6,9 @@ echo "Setting up your machine..."
 # Check if the operating system is macOS
 if [[ "$OS" == "Darwin" ]]; then
     echo "Running macOS specific steps..."
+    
+    # Install OS X Command Line Tools
+    xcode-select --install
 
     # Check for Homebrew and install if we don't have it
     if test ! $(which brew); then

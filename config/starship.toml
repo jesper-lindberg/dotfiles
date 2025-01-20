@@ -21,5 +21,14 @@ disabled = true
 [kubernetes]
 disabled = false
 
+[golang]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[buf]
+disabled = true
+
 [kubernetes.context_aliases]
 'gke_.*_(?P<var_cluster>[\w-]+)' = '$var_cluster'
