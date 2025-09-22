@@ -37,3 +37,4 @@ alias ls eza
 alias root="cd (git rev-parse --show-cdup)"
 
 starship init fish | source
+mise activate fish | source
