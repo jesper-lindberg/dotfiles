@@ -1,9 +1,19 @@
 # dotfiles
 
-## Usage
-
 Supports macOS and Linux
 
-1. Clone this repo to `~/.dotfiles`
-2. Run `python3 install.py` to start the installation
-3. Restart your computer to finalize the process
+## Quick Start
+
+```bash
+git clone <your-repo-url> ~/.dotfiles
+cd ~/.dotfiles
+./install.py
+```
+
+Or run the installation script directly:
+
+```bash
+chmod +x install.py && ./install.py
+```
+
+Restart your shell or computer to finalize the process.

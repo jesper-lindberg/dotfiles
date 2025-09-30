@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
-import subprocess
+import os
 import platform
 import shutil
+import subprocess
 from pathlib import Path
+from typing import Optional
 
 
 class Style:
@@ -15,7 +17,7 @@ class Style:
     BOLD: str = "\033[1m"
 
 
-DOTFILES_DIR: Path = Path.home() / ".dotfiles"
+DOTFILES_DIR = Path(__file__).parent.resolve()
 
 # Configuration
 SYMLINKS_COMMON: dict[str, str] = {
@@ -48,15 +50,18 @@ def get_symlinks() -> dict[str, str]:
     return symlinks
 
 
-def run(
-    cmd: str, check: bool = True, capture: bool = False
-) -> subprocess.CompletedProcess[str]:
-    """Execute shell command"""
-    if capture:
-        return subprocess.run(
-            cmd, shell=True, check=check, capture_output=True, text=True
-        )
-    return subprocess.run(cmd, shell=True, check=check, text=True)
+def run_shell(cmd: str, check: bool = True) -> int:
+    """Execute shell command, return exit code"""
+    result = subprocess.run(cmd, shell=True, text=True)
+    if check and result.returncode != 0:
+        raise subprocess.CalledProcessError(result.returncode, cmd)
+    return result.returncode
+
+
+def run_capture(cmd: list[str]) -> str:
+    """Execute command safely and capture output"""
+    result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    return result.stdout.strip()
 
 
 def command_exists(cmd: str) -> bool:
@@ -86,12 +91,16 @@ def warning(text: str) -> None:
 
 def create_symlink(source: str, target: str) -> bool:
     """Create symlink from dotfiles to home directory"""
-    src: Path = DOTFILES_DIR / source
-    dest: Path = Path.home() / target
+    src = DOTFILES_DIR / source
+    dest = Path.home() / target
 
     if not src.exists():
         warning(f"Source not found: {source}")
         return False
+
+    # Check if already linked correctly
+    if dest.is_symlink() and dest.resolve() == src:
+        return True
 
     # Create parent directory if needed
     dest.parent.mkdir(parents=True, exist_ok=True)
@@ -109,40 +118,56 @@ def create_symlink(source: str, target: str) -> bool:
     return True
 
 
+def get_brew_path() -> Optional[str]:
+    """Get Homebrew path, checking Apple Silicon location first"""
+    # Apple Silicon Macs use /opt/homebrew
+    if Path("/opt/homebrew/bin/brew").exists():
+        return "/opt/homebrew/bin/brew"
+    # Intel Macs use /usr/local
+    if Path("/usr/local/bin/brew").exists():
+        return "/usr/local/bin/brew"
+    # Check if brew is in PATH
+    return shutil.which("brew")
+
+
 def install_homebrew() -> bool:
     """Install Homebrew on macOS"""
-    if command_exists("brew"):
+    if get_brew_path():
         success("Homebrew already installed")
         return True
 
     info("Installing Homebrew...")
-    result: subprocess.CompletedProcess[str] = run(
+    exit_code = run_shell(
         '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
         check=False,
     )
 
-    if result.returncode == 0:
+    if exit_code == 0:
         success("Homebrew installed")
+        # Add to PATH for this session
+        brew_path = get_brew_path()
+        if brew_path:
+            os.environ["PATH"] = f"{Path(brew_path).parent}:{os.environ['PATH']}"
         return True
-    else:
-        error("Failed to install Homebrew")
-        return False
+
+    error("Failed to install Homebrew")
+    return False
 
 
 def install_brew_packages() -> None:
     """Install packages from Brewfile"""
-    brewfile: Path = DOTFILES_DIR / "Brewfile"
+    brewfile = DOTFILES_DIR / "Brewfile"
 
     if not brewfile.exists():
         warning("Brewfile not found, skipping package installation")
         return
 
     info("Updating Homebrew...")
-    _ = run("brew update")
+    _ = run_shell("brew update")
     success("Homebrew updated")
 
     info("Installing packages from Brewfile...")
-    _ = run(f"brew bundle --file={brewfile}")
+    _ = run_shell(f"brew bundle --file={brewfile}")
     success("Packages installed")
 
 
@@ -153,17 +178,14 @@ def setup_fish_shell() -> bool:
         return False
 
     info("Setting Fish as default shell...")
-    fish_path: str = run("which fish", capture=True).stdout.strip()
+    fish_path = run_capture(["which", "fish"])
 
     # Add fish to /etc/shells if not present
-    result: subprocess.CompletedProcess[str] = run(
-        f"grep -q {fish_path} /etc/shells", check=False
-    )
-    if result.returncode != 0:
-        _ = run(f"echo {fish_path} | sudo tee -a /etc/shells")
+    if run_shell(f"grep -q {fish_path} /etc/shells", check=False) != 0:
+        _ = run_shell(f"echo {fish_path} | sudo tee -a /etc/shells")
 
     # Change default shell
-    _ = run(f"chsh -s {fish_path}", check=False)
+    _ = run_shell(f"chsh -s {fish_path}", check=False)
     success("Fish shell configured")
     return True
 
@@ -176,21 +198,14 @@ def install_dotfiles() -> None:
     print("╚════════════════════════════════════╝")
     print(Style.RESET)
 
-    os_type: str = platform.system()
-
-    # Ensure dotfiles directory exists
-    if not DOTFILES_DIR.exists():
-        error(f"Dotfiles directory not found at {DOTFILES_DIR}")
-        print("\nClone your dotfiles first:")
-        print(f"  git clone <your-repo-url> {DOTFILES_DIR}")
-        return
+    os_type = platform.system()
 
     # Platform-specific setup
     if os_type == "Darwin":
         header("macOS Setup")
 
         info("Installing Xcode Command Line Tools...")
-        _ = run("xcode-select --install", check=False)
+        _ = run_shell("xcode-select --install", check=False)
 
         _ = install_homebrew()
         install_brew_packages()
@@ -205,8 +220,8 @@ def install_dotfiles() -> None:
 
     # Create all symlinks
     header("Creating Symlinks")
-    success_count: int = 0
-    symlinks: dict[str, str] = get_symlinks()
+    success_count = 0
+    symlinks = get_symlinks()
 
     for source, target in symlinks.items():
         if create_symlink(source, target):
