@@ -4,7 +4,6 @@ import subprocess
 import platform
 import shutil
 from pathlib import Path
-from typing import dict, Optional
 
 
 class Style:
@@ -19,25 +18,45 @@ class Style:
 DOTFILES_DIR: Path = Path.home() / ".dotfiles"
 
 # Configuration
-SYMLINKS: dict[str, str] = {
+SYMLINKS_COMMON: dict[str, str] = {
     "config/fish": ".config/fish",
     "config/nvim": ".config/nvim",
-    "config/hammerspoon": ".hammerspoon",
     "config/starship.toml": ".config/starship.toml",
     "config/git/.gitconfig": ".gitconfig",
     "config/tmux/.tmux.conf": ".tmux.conf",
 }
 
+SYMLINKS_MACOS: dict[str, str] = {
+    "config/hammerspoon": ".hammerspoon",
+}
+
+SYMLINKS_LINUX: dict[str, str] = {
+    # Add Linux-specific symlinks here if needed
+}
+
+
+def get_symlinks() -> dict[str, str]:
+    """Get symlinks based on current OS"""
+    symlinks = SYMLINKS_COMMON.copy()
+    os_type = platform.system()
+
+    if os_type == "Darwin":
+        symlinks.update(SYMLINKS_MACOS)
+    elif os_type == "Linux":
+        symlinks.update(SYMLINKS_LINUX)
+
+    return symlinks
+
 
 def run(
     cmd: str, check: bool = True, capture: bool = False
-) -> subprocess.CompletedProcess:
+) -> subprocess.CompletedProcess[str]:
     """Execute shell command"""
     if capture:
         return subprocess.run(
             cmd, shell=True, check=check, capture_output=True, text=True
         )
-    return subprocess.run(cmd, shell=True, check=check)
+    return subprocess.run(cmd, shell=True, check=check, text=True)
 
 
 def command_exists(cmd: str) -> bool:
@@ -97,7 +116,7 @@ def install_homebrew() -> bool:
         return True
 
     info("Installing Homebrew...")
-    result: subprocess.CompletedProcess = run(
+    result: subprocess.CompletedProcess[str] = run(
         '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"',
         check=False,
     )
@@ -110,6 +129,23 @@ def install_homebrew() -> bool:
         return False
 
 
+def install_brew_packages() -> None:
+    """Install packages from Brewfile"""
+    brewfile: Path = DOTFILES_DIR / "Brewfile"
+
+    if not brewfile.exists():
+        warning("Brewfile not found, skipping package installation")
+        return
+
+    info("Updating Homebrew...")
+    _ = run("brew update")
+    success("Homebrew updated")
+
+    info("Installing packages from Brewfile...")
+    _ = run(f"brew bundle --file={brewfile}")
+    success("Packages installed")
+
+
 def setup_fish_shell() -> bool:
     """Set Fish as default shell"""
     if not command_exists("fish"):
@@ -120,14 +156,14 @@ def setup_fish_shell() -> bool:
     fish_path: str = run("which fish", capture=True).stdout.strip()
 
     # Add fish to /etc/shells if not present
-    result: subprocess.CompletedProcess = run(
+    result: subprocess.CompletedProcess[str] = run(
         f"grep -q {fish_path} /etc/shells", check=False
     )
     if result.returncode != 0:
-        run(f"echo {fish_path} | sudo tee -a /etc/shells")
+        _ = run(f"echo {fish_path} | sudo tee -a /etc/shells")
 
     # Change default shell
-    run(f"chsh -s {fish_path}", check=False)
+    _ = run(f"chsh -s {fish_path}", check=False)
     success("Fish shell configured")
     return True
 
@@ -154,9 +190,10 @@ def install_dotfiles() -> None:
         header("macOS Setup")
 
         info("Installing Xcode Command Line Tools...")
-        run("xcode-select --install", check=False)
+        _ = run("xcode-select --install", check=False)
 
-        install_homebrew()
+        _ = install_homebrew()
+        install_brew_packages()
 
     elif os_type == "Linux":
         header("Linux Setup")
@@ -164,17 +201,19 @@ def install_dotfiles() -> None:
 
     # Shell configuration
     header("Configuring Shell & Tools")
-    setup_fish_shell()
+    _ = setup_fish_shell()
 
     # Create all symlinks
     header("Creating Symlinks")
     success_count: int = 0
-    for source, target in SYMLINKS.items():
+    symlinks: dict[str, str] = get_symlinks()
+
+    for source, target in symlinks.items():
         if create_symlink(source, target):
             success_count += 1
 
     print(
-        f"\n  {Style.GREEN}✓ {success_count}/{len(SYMLINKS)} symlinks created{Style.RESET}"
+        f"\n  {Style.GREEN}✓ {success_count}/{len(symlinks)} symlinks created{Style.RESET}"
     )
 
     print(f"\n{Style.BOLD}{Style.GREEN}✓ Installation complete!{Style.RESET}\n")

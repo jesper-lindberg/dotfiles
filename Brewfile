@@ -23,6 +23,9 @@ brew 'tree'
 brew 'trash'
 brew 'wget'
 
+# AI
+cask 'claude-code'
+
 # Development
 brew 'git'
 brew 'neovim'
