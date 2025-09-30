@@ -1,9 +1,3 @@
-# Taps
-tap 'homebrew/cask'
-tap 'homebrew/cask-fonts'
-tap 'homebrew/cask-versions'
-tap 'homebrew/bundle'
-
 # Make sure apps get installed in system Applications dir
 cask_args appdir: '/Applications'
 
@@ -20,7 +14,6 @@ brew 'coreutils'
 brew 'findutils'
 
 # Install more recent versions of some OS X tools
-brew 'homebrew/dupes/grep'
 brew 'ripgrep'
 brew 'fzf'
 
@@ -35,10 +28,10 @@ brew 'git'
 brew 'neovim'
 brew 'node'
 brew 'go'
-cask 'docker'
+cask 'orbstack'
 brew 'git-delta'
 cask 'macdown'
-cask 'google-cloud-sdk'
+cask 'gcloud-cli'
 brew 'k3d'
 cask 'ghostty'
 cask 'zed'
@@ -49,6 +42,7 @@ brew 'k9s'
 brew 'starship'
 brew 'fisher'
 brew 'utf8proc'
+brew 'mise'
 
 # Apps
 cask 'aerial'
@@ -60,6 +54,7 @@ cask 'spotify'
 cask 'tower'
 cask 'transmit'
 cask 'vlc'
+cask 'hammerspoon'
 cask 'visual-studio-code'
 
 # Quicklook

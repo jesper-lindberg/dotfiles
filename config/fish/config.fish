@@ -1,5 +1,5 @@
 # Set environment variables
-source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+source /opt/homebrew/Caskroom/gcloud-cli/latest/google-cloud-sdk/path.fish.inc
 
 set -gx PATH /opt/homebrew/bin /usr/local/bin /usr/local/sbin ~/go/bin $HOME/.local/bin $HOME/.node/bin $HOME/.linkerd2/bin node_modules/.bin vendor/bin $PATH
 set -gx USE_GKE_GCLOUD_AUTH_PLUGIN true
@@ -30,7 +30,6 @@ set -g theme_color_scheme ayu
 set -g fish_prompt_pwd_dir_length 20
 
 # Set up aliases
-alias reset-samba-passwd="docker run --rm -it dperson/samba bash -c ""smbpasswd -U jesperl -r sybogames.local"""
 alias docker-stop-all="docker stop (docker ps -a -q)"
 alias vim nvim
 alias ls eza
@@ -38,3 +37,4 @@ alias root="cd (git rev-parse --show-cdup)"
 
 starship init fish | source
 mise activate fish | source
+fzf --fish | source
