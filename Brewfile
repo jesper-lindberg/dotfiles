@@ -1,5 +1,4 @@
-# Make sure apps get installed in system Applications dir
-cask_args appdir: '/Applications'
+# Cross-platform Brewfile for macOS and Linux
 
 # Install fish
 brew 'fish'
@@ -13,31 +12,18 @@ brew 'coreutils'
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 brew 'findutils'
 
-# Install more recent versions of some OS X tools
+# Install CLI tools
 brew 'ripgrep'
 brew 'fzf'
-
-# Install Binaries
 brew 'hub'
 brew 'tree'
-brew 'trash'
 brew 'wget'
-
-# AI
-cask 'claude-code'
-
-# Development
 brew 'git'
 brew 'neovim'
 brew 'node'
 brew 'go'
-cask 'orbstack'
 brew 'git-delta'
-cask 'macdown'
-cask 'gcloud-cli'
 brew 'k3d'
-cask 'ghostty'
-cask 'zed'
 brew 'kubectl'
 brew 'skaffold'
 brew 'helm'
@@ -47,27 +33,52 @@ brew 'fisher'
 brew 'utf8proc'
 brew 'mise'
 
-# Apps
-cask 'aerial'
-cask 'dash'
-cask 'firefox'
-cask 'github'
-cask 'google-chrome'
-cask 'spotify'
-cask 'tower'
-cask 'transmit'
-cask 'vlc'
-cask 'hammerspoon'
-cask 'visual-studio-code'
+# macOS-specific packages
+if OS.mac?
+  # Make sure apps get installed in system Applications dir
+  cask_args appdir: '/Applications'
 
-# Quicklook
-cask 'qlcolorcode'
-cask 'qlmarkdown'
-cask 'quicklook-json'
-cask 'quicklook-csv'
-cask 'qlstephen'
+  # macOS-specific CLI tool
+  brew 'trash'
 
-# Fonts
-cask 'font-source-code-pro'
-cask 'font-inconsolata'
-cask 'font-fira-code'
+  # AI
+  cask 'claude-code'
+
+  # Development
+  cask 'orbstack'
+  cask 'macdown'
+  cask 'gcloud-cli'
+  cask 'ghostty'
+  cask 'zed'
+
+  # Apps
+  cask 'aerial'
+  cask 'dash'
+  cask 'firefox'
+  cask 'github'
+  cask 'google-chrome'
+  cask 'spotify'
+  cask 'tower'
+  cask 'transmit'
+  cask 'vlc'
+  cask 'hammerspoon'
+  cask 'visual-studio-code'
+
+  # Quicklook
+  cask 'qlcolorcode'
+  cask 'qlmarkdown'
+  cask 'quicklook-json'
+  cask 'quicklook-csv'
+  cask 'qlstephen'
+
+  # Fonts
+  cask 'font-source-code-pro'
+  cask 'font-inconsolata'
+  cask 'font-fira-code'
+end
+
+# Linux-specific packages
+if OS.linux?
+  # Linux alternatives or equivalents can be added here
+  # Note: Many GUI apps would need to be installed via system package manager
+end

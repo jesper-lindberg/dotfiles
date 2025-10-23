@@ -26,3 +26,6 @@
 ehthumbs.db
 Thumbs.db
 .idea/
+
+# Fish shell - machine-specific universal variables
+config/fish/fish_variables

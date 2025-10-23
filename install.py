@@ -119,19 +119,22 @@ def create_symlink(source: str, target: str) -> bool:
 
 
 def get_brew_path() -> Optional[str]:
-    """Get Homebrew path, checking Apple Silicon location first"""
+    """Get Homebrew path, checking platform-specific locations"""
     # Apple Silicon Macs use /opt/homebrew
     if Path("/opt/homebrew/bin/brew").exists():
         return "/opt/homebrew/bin/brew"
     # Intel Macs use /usr/local
     if Path("/usr/local/bin/brew").exists():
         return "/usr/local/bin/brew"
+    # Linux uses /home/linuxbrew
+    if Path("/home/linuxbrew/.linuxbrew/bin/brew").exists():
+        return "/home/linuxbrew/.linuxbrew/bin/brew"
     # Check if brew is in PATH
     return shutil.which("brew")
 
 
 def install_homebrew() -> bool:
-    """Install Homebrew on macOS"""
+    """Install Homebrew"""
     if get_brew_path():
         success("Homebrew already installed")
         return True
@@ -162,12 +165,17 @@ def install_brew_packages() -> None:
         warning("Brewfile not found, skipping package installation")
         return
 
+    brew_path = get_brew_path()
+    if not brew_path:
+        error("Homebrew not found, cannot install packages")
+        return
+
     info("Updating Homebrew...")
-    _ = run_shell("brew update")
+    _ = run_shell(f"{brew_path} update")
     success("Homebrew updated")
 
     info("Installing packages from Brewfile...")
-    _ = run_shell(f"brew bundle --file={brewfile}")
+    _ = run_shell(f"{brew_path} bundle --file={brewfile}")
     success("Packages installed")
 
 
@@ -184,7 +192,10 @@ def setup_fish_shell() -> bool:
     if run_shell(f"grep -q {fish_path} /etc/shells", check=False) != 0:
         _ = run_shell(f"echo {fish_path} | sudo tee -a /etc/shells")
 
-    # Change default shell
+    # Change default shell (may require password)
+    os_type = platform.system()
+    if os_type == "Linux":
+        info("You may be prompted for your password to change the default shell")
     _ = run_shell(f"chsh -s {fish_path}", check=False)
     success("Fish shell configured")
     return True
@@ -212,7 +223,9 @@ def install_dotfiles() -> None:
 
     elif os_type == "Linux":
         header("Linux Setup")
-        info("Linux detected - manual package installation required")
+
+        _ = install_homebrew()
+        install_brew_packages()
 
     # Shell configuration
     header("Configuring Shell & Tools")

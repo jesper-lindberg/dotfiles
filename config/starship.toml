@@ -13,7 +13,7 @@ success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set
 disabled = true
 
 [aws]
-disabled = true
+disabled = false
 
 [gcloud]
 disabled = true
