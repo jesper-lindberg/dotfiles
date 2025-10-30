@@ -1,0 +1,138 @@
+[
+  // Bind jj to escape in insert mode
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j j": "vim::NormalBefore"
+    }
+  },
+
+  // File finder (Telescope equivalent)
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space f": "file_finder::Toggle"
+    }
+  },
+
+  // Project-wide search (live_grep equivalent)
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space g": "pane::DeploySearch"
+    }
+  },
+
+  // LSP: Go to definition
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "g d": "editor::GoToDefinition"
+    }
+  },
+
+  // LSP: Hover (show documentation)
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "shift-k": "editor::Hover"
+    }
+  },
+
+  // Previous diagnostic
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "d k": "editor::GoToPreviousDiagnostic"
+    }
+  },
+
+  // Next diagnostic
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "d j": "editor::GoToDiagnostic"
+    }
+  },
+
+  // Save file
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual)",
+    "bindings": {
+      "space w": "workspace::Save"
+    }
+  },
+
+  // Vertical split
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space v": "pane::SplitRight"
+    }
+  },
+
+  // Horizontal split
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space h": "pane::SplitDown"
+    }
+  },
+
+  // Close pane
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space q": "pane::CloseActiveItem"
+    }
+  },
+
+  // Toggle terminal
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space t t": "terminal_panel::ToggleFocus"
+    }
+  },
+
+  // Command palette
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space space": "command_palette::Toggle",
+      "ctrl-p": "command_palette::Toggle"
+    }
+  },
+
+  // Navigate buffers (tabs in Zed)
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "tab": "pane::ActivateNextItem"
+    }
+  },
+
+  // Toggle file tree
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space b": "project_panel::ToggleFocus"
+    }
+  },
+
+  // Select all
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "ctrl-a": "editor::SelectAll"
+    }
+  },
+
+  // Clear search highlights
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "escape": "editor::Cancel"
+    }
+  }
+]

@@ -23,6 +23,7 @@ DOTFILES_DIR = Path(__file__).parent.resolve()
 SYMLINKS_COMMON: dict[str, str] = {
     "config/fish": ".config/fish",
     "config/nvim": ".config/nvim",
+    "config/zed": ".config/zed",
     "config/starship.toml": ".config/starship.toml",
     "config/git/.gitconfig": ".gitconfig",
     "config/tmux/.tmux.conf": ".tmux.conf",
