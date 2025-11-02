@@ -8,7 +8,7 @@ else if test (uname) = Linux
     set -gx HOMEBREW_PREFIX /home/linuxbrew/.linuxbrew
 end
 
-set -gx PATH $HOMEBREW_PREFIX/bin /usr/local/bin /usr/local/sbin ~/go/bin $HOME/.local/bin $HOME/.node/bin node_modules/.bin vendor/bin $PATH
+set -gx PATH $HOMEBREW_PREFIX/bin /usr/local/bin /usr/local/sbin ~/go/bin $HOME/.local/bin $HOME/.node/bin $HOME/.cargo/bin node_modules/.bin vendor/bin $PATH
 set -gx USE_GKE_GCLOUD_AUTH_PLUGIN true
 set -gx LANG en_US.UTF-8
 
