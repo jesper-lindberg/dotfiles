@@ -32,6 +32,8 @@ brew 'starship'
 brew 'fisher'
 brew 'utf8proc'
 brew 'mise'
+brew 'eksctl'
+brew 'awscli'
 
 # macOS-specific packages
 if OS.mac?
@@ -67,7 +69,6 @@ if OS.mac?
   # Quicklook
   cask 'qlcolorcode'
   cask 'qlmarkdown'
-  cask 'quicklook-json'
   cask 'quicklook-csv'
   cask 'qlstephen'
 
