@@ -48,7 +48,6 @@ if OS.mac?
 
   # Development
   cask 'orbstack'
-  cask 'macdown'
   cask 'gcloud-cli'
   cask 'ghostty'
   cask 'zed'

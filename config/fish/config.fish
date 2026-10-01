@@ -1,5 +1,6 @@
 # Set environment variables
 # source /opt/homebrew/Caskroom/gcloud-cli/latest/google-cloud-sdk/path.fish.inc
+set fish_greeting ""
 
 # Set Homebrew path based on OS
 if test (uname) = Darwin
