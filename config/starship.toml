@@ -30,5 +30,6 @@ disabled = true
 [buf]
 disabled = true
 
-[kubernetes.context_aliases]
-'gke_.*_(?P<var_cluster>[\w-]+)' = '$var_cluster'
+[[kubernetes.contexts]]
+context_pattern = 'gke_.*_(?P<cluster>[\w-]+)'
+context_alias = '$cluster'
