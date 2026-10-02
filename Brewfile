@@ -34,6 +34,7 @@ brew 'utf8proc'
 brew 'mise'
 brew 'eksctl'
 brew 'awscli'
+brew 'kubectx'
 
 # macOS-specific packages
 if OS.mac?
@@ -42,9 +43,6 @@ if OS.mac?
 
   # macOS-specific CLI tool
   brew 'trash'
-
-  # AI
-  cask 'claude-code'
 
   # Development
   cask 'orbstack'
