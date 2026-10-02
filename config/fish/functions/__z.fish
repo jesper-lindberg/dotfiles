@@ -140,7 +140,11 @@ function __z -d "Jump to a recent directory."
         return
     end
 
-    set target (command awk -v t=(date +%s) -v typ="$typ" -v q="$q" -F "|" $z_script "$Z_DATA")
+    if set -q q[1]
+        set target (command awk -v t=(date +%s) -v typ="$typ" -v q="$q" -F "|" $z_script "$Z_DATA")
+    else
+        set target $HOME
+    end
 
     if test "$status" -gt 0
         return
@@ -169,6 +173,6 @@ function __z -d "Jump to a recent directory."
             echo "Not sure how to open file manager"; and return 1
         end
     else
-        pushd "$target"
+        cd "$target"
     end
 end
