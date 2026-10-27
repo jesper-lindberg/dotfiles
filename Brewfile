@@ -73,6 +73,7 @@ if OS.mac?
   cask 'font-source-code-pro'
   cask 'font-inconsolata'
   cask 'font-fira-code'
+  cask 'font-sf-mono'
 end
 
 # Linux-specific packages
