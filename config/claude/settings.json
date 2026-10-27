@@ -1,0 +1,34 @@
+{
+  "model": "opus",
+  "enabledPlugins": {
+    "mattpocock-skills@mattpocock": true,
+    "improve-claude-md@skills": true,
+    "narrow-react-prop-types@skills": true,
+    "build-iterated-agentic-loop@skills": true,
+    "design-control-loop@skills": true,
+    "show-me@skills": true,
+    "visual-pr@skills": true,
+    "swift-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      }
+    },
+    "skills": {
+      "source": {
+        "source": "github",
+        "repo": "humanlayer/skills"
+      }
+    }
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "theme": "custom:catppuccin-mocha",
+  "switchModelsOnFlag": false
+}

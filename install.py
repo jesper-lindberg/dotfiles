@@ -25,6 +25,8 @@ SYMLINKS_COMMON: dict[str, str] = {
     "config/nvim": ".config/nvim",
     "config/zed": ".config/zed",
     "config/ghostty": ".config/ghostty",
+    "config/claude/themes": ".claude/themes",
+    "config/claude/settings.json": ".claude/settings.json",
     "config/starship.toml": ".config/starship.toml",
     "config/git/.gitconfig": ".gitconfig",
     "config/tmux/.tmux.conf": ".tmux.conf",
