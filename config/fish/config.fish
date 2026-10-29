@@ -43,3 +43,7 @@ alias root="cd (git rev-parse --show-cdup)"
 starship init fish | source
 mise activate fish | source
 fzf --fish | source
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
