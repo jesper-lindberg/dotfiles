@@ -7,23 +7,30 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
   "cli_default_open_behavior": "new_window",
-  "buffer_font_family": "Geist Mono",
+  "buffer_font_family": "SF Mono",
   "icon_theme": {
     "mode": "light",
     "light": "Zed (Default)",
     "dark": "Zed (Default)",
   },
   "project_panel": {
-    "dock": "left",
+    "dock": "right",
   },
   "vim_mode": true,
-  "ui_font_size": 14,
+  "ui_font_size": 16,
   "buffer_font_size": 14,
+  "agent_ui_font_size": 16,
+  "agent_buffer_font_size": 14,
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Ayu Mirage",
+    "dark": "Catppuccin Mocha",
   },
   "languages": {
     "Python": {
