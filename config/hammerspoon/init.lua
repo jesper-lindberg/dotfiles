@@ -1,12 +1,15 @@
-hs.hotkey.bind({}, "§", function()
+require("hs.ipc") -- lets the `hs` CLI talk to Hammerspoon
+
+local function toggleGhostty()
     local appName = "Ghostty"
     local app = hs.appfinder.appFromName(appName)
 
-    if app then
-        if app:isHidden() then
-            hs.application.launchOrFocus(appName) -- Launch or focus the app if it's hidden
-        else
-            app:hide()                            -- Hide the app if it's not hidden
-        end
+    if app and app:isFrontmost() then
+        app:hide()                            -- Hide it if it's the active app
+    else
+        hs.application.launchOrFocus(appName) -- Otherwise launch it or bring it to the front
     end
-end)
+end
+
+hs.hotkey.bind({}, "§", toggleGhostty)
+hs.hotkey.bind({}, "<", toggleGhostty)
